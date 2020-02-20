@@ -9,13 +9,13 @@ function* bubbleSort(array) {
                 yield new Promise((resolve, reject) => {
                     setTimeout(() => {
                         resolve([j, j + 1, true]);
-                    }, 100);
+                    }, 80);
                 });
             } else {
                 yield new Promise((resolve, reject) => {
                     setTimeout(() => {
                         resolve([j, j + 1, false]);
-                    }, 100);
+                    }, 80);
                 });
             }
         }

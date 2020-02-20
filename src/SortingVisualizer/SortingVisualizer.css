@@ -5,6 +5,19 @@
     width: 100%;
 }
 
+.bar{
+    background-color: green;
+    margin: 0.5em;
+    padding: 0.5em;
+}
+
+.compares {
+    background-color:red;
+}
+
+.swaps {
+    background-color: grey;
+}
 
 .controls {
     display: flex;
