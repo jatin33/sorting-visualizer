@@ -7,14 +7,14 @@ function SortingVisualizer() {
     const [dataset, setData] = useState(generateArray());
 
     async function handleSort() {
-        const bars = [...document.getElementById('bars').childNodes];
         for await (let frame of sort(dataset)) {
             const [barOneIndex, barTwoIndex, swappable] = frame;
             if (swappable) {
-                const temp = bars[barOneIndex].style.height;
-                bars[barOneIndex].style.height = bars[barTwoIndex].style.height;
-                bars[barTwoIndex].style.height = temp;
+                const temp = dataset[barOneIndex];
+                dataset[barOneIndex] = dataset[barTwoIndex];
+                dataset[barTwoIndex] = temp;
             }
+            setData([...dataset]);
         }
     }
 
