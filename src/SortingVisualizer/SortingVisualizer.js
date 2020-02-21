@@ -1,32 +1,42 @@
 import React, { useState } from 'react';
-import styles from './SortingVisualizer.module.css';
-import bubbleSort from '../SortingAlgorithms/BubbleSort';
+import './SortingVisualizer.css';
+import sort from '../SortingAlgorithms/BubbleSort';
+import generateArray from '../utils/generateRandomArray';
 
-const Bar = {
-    backgroundColor: 'green', margin: '0.5em', padding: '0.5em'
-}
 function SortingVisualizer() {
     const [dataset, setData] = useState(generateArray());
 
+    async function handleSort() {
+        for await (let frame of sort(dataset)) {
+            const [barOneIndex, barTwoIndex, swappable] = frame;
+            if (swappable) {
+                const temp = dataset[barOneIndex];
+                dataset[barOneIndex] = dataset[barTwoIndex];
+                dataset[barTwoIndex] = temp;
+            }
+            setData([...dataset]);
+        }
+    }
+
+    function randomizeArray() {
+        setData(generateArray());
+    }
+
     return (
-        <div className={styles.container}>
-            <div className={styles.controls}>
-                <button onClick={() => { setData(generateArray()) }}>Randomize Array</button>
-                <button onClick={() => { setData(bubbleSort(dataset)) }}>Sort</button>
+        <div className={'container'}>
+            <div className={'controls'}>
+                <button onClick={randomizeArray}>Randomize Array</button>
+                <button onClick={handleSort}>Sort</button>
             </div>
-            <div className={styles.visual}>
-                {dataset.map((num, index) => <div key={index} style={{ height: `${num * 5}px`, ...Bar }}></div>)}
+            <div id="bars" className={'visual'}>
+                {
+                    dataset.map((num, index) => <div key={index}
+                        style={{ height: `${num * 5}px` }}
+                        className={'bar'}></div>)
+                }
             </div>
         </div>
     )
-}
-
-function generateArray() {
-    const data = [];
-    for (let i = 0; i < 10; i += 1) {
-        data.push(Math.floor(Math.random() * 50) + 1);
-    }
-    return data;
 }
 
 export default SortingVisualizer;

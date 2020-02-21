@@ -5,6 +5,11 @@
     width: 100%;
 }
 
+.bar{
+    background-color: green;
+    margin: 0.5em;
+    padding: 0.5em;
+}
 
 .controls {
     display: flex;
